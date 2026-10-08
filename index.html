@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Swayam Chaturvedi — Software & AI Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of Swayam Chaturvedi — Entry-Level Software Developer specializing in Java, Web Development, REST APIs, and Machine Learning." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Outfit, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            canvas: '#08080a',
+            subtle: '#111115',
+            card: '#16161c',
+            cardHover: '#1c1c24',
+            borderLine: '#262630',
+            borderHover: '#3f3f50',
+            accent: '#10b981',
+            accentGlow: '#059669',
+            emeraldDark: '#064e3b',
+            cyanGlow: '#06b6d4',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Mouse Spotlight Grid */
+    .spotlight-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    
+    .radial-glow {
+      background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 30%), rgba(16, 185, 129, 0.07), transparent 40%);
+    }
+
+    /* Subtle Glassmorphism */
+    .glass-nav {
+      background: rgba(8, 8, 10, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .glass-card {
+      background: rgba(22, 22, 28, 0.7);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(38, 38, 48, 0.8);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+    }
+
+    /* Toast Notification Animation */
+    @keyframes slideUpFade {
+      0% { opacity: 0; transform: translate(-50%, 20px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
+    }
+    .animate-toast {
+      animation: slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Terminal Blinking Cursor */
+    .terminal-cursor::after {
+      content: '▋';
+      display: inline-block;
+      margin-left: 2px;
+      animation: blink 1s infinite;
+      color: #10b981;
+    }
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body class="bg-canvas text-zinc-300 font-sans antialiased selection:bg-emerald-950 selection:text-emerald-400 relative min-h-screen spotlight-grid overflow-x-hidden" id="body">
+
+  <!-- Ambient Light Spotlight Canvas Overlay -->
+  <div class="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300 radial-glow"></div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 inset-x-0 glass-nav border-b border-borderLine z-50 transition-all duration-200">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#hero" class="font-mono text-sm tracking-wide text-zinc-100 hover:text-emerald-400 flex items-center gap-2.5 transition">
+        <span class="relative flex h-2.5 w-2.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+        </span>
+        <span class="font-semibold">swayam.chaturvedi</span>
+        <span class="text-xs text-zinc-500 font-normal hidden sm:inline-block">/ dev.v2</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="hidden md:flex items-center gap-7 text-xs font-mono text-zinc-400">
+        <a href="#about" class="hover:text-emerald-400 transition-colors py-1">01. about</a>
+        <a href="#experience" class="hover:text-emerald-400 transition-colors py-1">02. exp</a>
+        <a href="#skills" class="hover:text-emerald-400 transition-colors py-1">03. stack</a>
+        <a href="#projects" class="hover:text-emerald-400 transition-colors py-1">04. work</a>
+        <a href="#terminal-section" class="hover:text-emerald-400 transition-colors py-1">05. cli</a>
+        <a href="#certifications" class="hover:text-emerald-400 transition-colors py-1">06. creds</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <button onclick="scrollToContact()" class="font-mono text-xs text-emerald-400 bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-800/60 hover:border-emerald-500/80 px-3.5 py-1.5 rounded-md transition shadow-sm flex items-center gap-2">
+          <span>get_in_touch()</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobileMenuBtn" class="md:hidden text-zinc-400 hover:text-white p-2">
+          <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-b border-borderLine bg-subtle px-6 py-4 space-y-3 font-mono text-xs text-zinc-300">
+      <a href="#about" class="block hover:text-emerald-400">01. about</a>
+      <a href="#experience" class="block hover:text-emerald-400">02. experience</a>
+      <a href="#skills" class="block hover:text-emerald-400">03. tech stack</a>
+      <a href="#projects" class="block hover:text-emerald-400">04. featured work</a>
+      <a href="#terminal-section" class="block hover:text-emerald-400">05. developer cli</a>
+      <a href="#certifications" class="block hover:text-emerald-400">06. credentials</a>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="pt-40 pb-24 px-6 max-w-6xl mx-auto relative">
+    <div class="space-y-8">
+      
+      <div class="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-zinc-900/90 border border-borderLine text-zinc-400 font-mono text-xs shadow-inner">
+        <span class="flex h-2 w-2 rounded-full bg-accent animate-pulse"></span>
+        <span class="text-zinc-300">$ status:</span> Open to Software & AI Engineering Roles
+      </div>
+
+      <div class="space-y-4 max-w-4xl">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-zinc-100 font-display leading-[1.1]">
+          Software Developer & <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">AI Systems Enthusiast.</span>
+        </h1>
+        <p class="text-zinc-400 text-lg sm:text-xl max-w-2xl leading-relaxed font-normal">
+          Hi, I'm <strong class="text-zinc-200 font-semibold">Swayam Chaturvedi</strong>. Entry-level software developer focused on building clean web applications, REST APIs with Java & Spring Boot, event messaging with Kafka, and practical machine learning pipelines.
+        </p>
+      </div>
+
+      <!-- Quick Metrics Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 py-4 max-w-3xl border-y border-borderLine/80 font-mono text-xs text-zinc-400">
+        <div>
+          <div class="text-zinc-500 uppercase tracking-wider text-[10px]">Primary Core</div>
+          <div class="text-zinc-200 text-sm font-semibold mt-0.5">Java & Python</div>
+        </div>
+        <div>
+          <div class="text-zinc-500 uppercase tracking-wider text-[10px]">Backend & APIs</div>
+          <div class="text-zinc-200 text-sm font-semibold mt-0.5">Spring Boot & REST</div>
+        </div>
+        <div>
+          <div class="text-zinc-500 uppercase tracking-wider text-[10px]">Machine Learning</div>
+          <div class="text-zinc-200 text-sm font-semibold mt-0.5">Scikit-Learn & GenAI</div>
+        </div>
+        <div>
+          <div class="text-zinc-500 uppercase tracking-wider text-[10px]">Internship Exp</div>
+          <div class="text-zinc-200 text-sm font-semibold mt-0.5">BeeSkilled (Web Dev)</div>
+        </div>
+      </div>
+
+      <!-- Action CTA Buttons -->
+      <div class="flex flex-wrap items-center gap-3 pt-2 font-mono text-xs">
+        <a href="#projects" class="px-5 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold rounded-lg shadow-lg shadow-emerald-500/20 transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+          <span>explore_projects</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+        
+        <button onclick="copyEmailToClipboard()" class="px-4 py-3 bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-borderLine hover:border-zinc-500 rounded-lg transition-all flex items-center gap-2" title="swayam32chaturvedi@gmail.com">
+          <i class="fa-regular fa-copy text-emerald-400"></i>
+          <span>copy email</span>
+        </button>
+
+        <a href="mailto:swayam32chaturvedi@gmail.com" class="px-4 py-3 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 border border-borderLine hover:border-zinc-500 rounded-lg transition flex items-center gap-2" title="Send direct email">
+          <i class="fa-regular fa-envelope text-emerald-400"></i>
+          <span>send email</span>
+        </a>
+
+        <a href="https://linkedin.com/in/swayam-chaturvedi" target="_blank" rel="noopener" class="px-4 py-3 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 border border-borderLine hover:border-zinc-500 rounded-lg transition flex items-center gap-2">
+          <i class="fa-brands fa-linkedin text-sm text-blue-400"></i> LinkedIn
+        </a>
+        
+        <a href="https://github.com/swayam32chaturvedi-code" target="_blank" rel="noopener" class="px-4 py-3 bg-zinc-900/80 hover:bg-zinc-800 text-zinc-300 border border-borderLine hover:border-zinc-500 rounded-lg transition flex items-center gap-2">
+          <i class="fa-brands fa-github text-sm text-zinc-100"></i> GitHub
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 font-mono text-xs text-emerald-400 tracking-widest uppercase">
+        // 01. Background & Philosophy
+      </div>
+      <div class="md:col-span-8 space-y-6 text-zinc-300 leading-relaxed text-sm sm:text-base">
+        <p>
+          I am a software developer focused on building clean, data-informed software architectures. My practical engineering experience spans web development from my internship at <strong class="text-zinc-100 font-semibold">BeeSkilled</strong>, event-driven backend projects built with Java, REST APIs, and Apache Kafka, and predictive machine learning models.
+        </p>
+        <p>
+          I enjoy writing maintainable code and learning pragmatic system design—from writing structured REST API controllers to evaluating financial default risk using Generative AI workflows and designing analytical dashboards in Tableau. My focus is on shipping clean, well-tested code.
+        </p>
+
+        <!-- Highlights Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+          <div class="p-4 bg-zinc-900/60 border border-borderLine rounded-lg space-y-1">
+            <div class="font-mono text-xs text-emerald-400 font-semibold">Clean Architecture</div>
+            <div class="text-xs text-zinc-400">Modular design patterns, structured API controllers & REST endpoints.</div>
+          </div>
+          <div class="p-4 bg-zinc-900/60 border border-borderLine rounded-lg space-y-1">
+            <div class="font-mono text-xs text-cyan-400 font-semibold">Event-Driven Streaming</div>
+            <div class="text-xs text-zinc-400">Asynchronous messaging with Kafka, H2 databases & pipeline reliability.</div>
+          </div>
+          <div class="p-4 bg-zinc-900/60 border border-borderLine rounded-lg space-y-1">
+            <div class="font-mono text-xs text-teal-400 font-semibold">Practical Machine Learning</div>
+            <div class="text-xs text-zinc-400">Scikit-learn, hyperparameter search, risk profiling & EDA reporting.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="py-20 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 font-mono text-xs text-emerald-400 tracking-widest uppercase">
+        // 02. Work Experience
+      </div>
+      <div class="md:col-span-8">
+        
+        <div class="glass-card rounded-xl p-7 space-y-5 transition-all">
+          <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-borderLine pb-4">
+            <div>
+              <h3 class="text-lg font-bold text-zinc-100 font-display">Web Development Intern</h3>
+              <div class="text-xs font-mono text-emerald-400 mt-0.5">BeeSkilled &bull; Frontend & API Integration</div>
+            </div>
+            <span class="font-mono text-xs px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full self-start sm:self-auto">2 Months Internship</span>
+          </div>
+
+          <ul class="text-xs sm:text-sm text-zinc-300 space-y-3 list-none leading-relaxed">
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-angle-right text-emerald-400 text-xs mt-1"></i>
+              <span>Engineered and deployed responsive UI components prioritizing cross-browser performance, accessibility standard adherence, and semantic HTML5/CSS3/JS architecture.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-angle-right text-emerald-400 text-xs mt-1"></i>
+              <span>Collaborated on frontend-to-backend REST API consumption, optimizing payload rendering speeds and reducing view update latency.</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fa-solid fa-angle-right text-emerald-400 text-xs mt-1"></i>
+              <span>Executed comprehensive functional debugging, mobile viewport responsiveness checks, and progressive component updates.</span>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-2 pt-2 font-mono text-xs">
+            <span class="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-md">HTML5</span>
+            <span class="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-md">CSS3 / Flexbox</span>
+            <span class="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-md">JavaScript (ES6+)</span>
+            <span class="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-md">REST APIs</span>
+            <span class="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-md">UI Diagnostics</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Technical Stack Section -->
+  <section id="skills" class="py-20 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 font-mono text-xs text-emerald-400 tracking-widest uppercase">
+        // 03. Technical Stack
+      </div>
+      <div class="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-5">
+        
+        <div class="glass-card p-6 rounded-xl space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-950/60 border border-emerald-800/60 flex items-center justify-center text-emerald-400 font-mono text-sm">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-sm text-zinc-100">Web & Frontend</div>
+              <div class="font-mono text-[11px] text-zinc-500">Core User Experience</div>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            HTML5, CSS3, Modern JavaScript (ES6+), Responsive Layouts, DOM Manipulation, Fetch API, Client-Side Validation.
+          </p>
+          <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-emerald-400 h-full w-[90%] rounded-full"></div>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan-950/60 border border-cyan-800/60 flex items-center justify-center text-cyan-400 font-mono text-sm">
+              <i class="fa-solid fa-server"></i>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-sm text-zinc-100">Backend & Distributed</div>
+              <div class="font-mono text-[11px] text-zinc-500">Event-Driven Services</div>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Java, Spring Boot, RESTful Controllers, Apache Kafka Event Streaming, H2 In-Memory Database, SQL Schemas.
+          </p>
+          <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-cyan-400 h-full w-[85%] rounded-full"></div>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-teal-950/60 border border-teal-800/60 flex items-center justify-center text-teal-400 font-mono text-sm">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-sm text-zinc-100">Machine Learning & AI</div>
+              <div class="font-mono text-[11px] text-zinc-500">Predictive Pipelines</div>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Python, Predictive Modeling, Scikit-Learn, Feature Pipeline Engineering, Cross-Validation, GenAI Workflows.
+          </p>
+          <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-teal-400 h-full w-[82%] rounded-full"></div>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-amber-950/60 border border-amber-800/60 flex items-center justify-center text-amber-400 font-mono text-sm">
+              <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <div>
+              <div class="font-display font-semibold text-sm text-zinc-100">Analytics & Developer Tools</div>
+              <div class="font-mono text-[11px] text-zinc-500">Visualization & Tooling</div>
+            </div>
+          </div>
+          <p class="text-xs text-zinc-400 leading-relaxed">
+            Tableau Dashboards, Exploratory Data Analysis (EDA), Git, Postman, Linux CLI, Risk Profiling.
+          </p>
+          <div class="w-full bg-zinc-900 h-1.5 rounded-full overflow-hidden">
+            <div class="bg-amber-400 h-full w-[88%] rounded-full"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Work Section -->
+  <section id="projects" class="py-20 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="space-y-8">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <div class="font-mono text-xs text-emerald-400 tracking-widest uppercase">// 04. Featured Engineering Projects</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-zinc-100 font-display mt-1">Featured Projects & Simulations</h2>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap gap-2 font-mono text-xs bg-zinc-900/80 p-1 rounded-lg border border-borderLine">
+          <button onclick="filterProjects('all')" id="tab-all" class="px-3 py-1.5 rounded-md bg-emerald-500 text-zinc-950 font-semibold transition">All (4)</button>
+          <button onclick="filterProjects('ai')" id="tab-ai" class="px-3 py-1.5 rounded-md text-zinc-400 hover:text-white transition">AI & ML</button>
+          <button onclick="filterProjects('backend')" id="tab-backend" class="px-3 py-1.5 rounded-md text-zinc-400 hover:text-white transition">Backend</button>
+          <button onclick="filterProjects('analytics')" id="tab-analytics" class="px-3 py-1.5 rounded-md text-zinc-400 hover:text-white transition">Analytics</button>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+
+        <!-- Project 1: GenAI Risk -->
+        <div class="project-card glass-card rounded-xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1" data-category="ai" onclick="openProjectModal('genai')">
+          <div class="relative h-48 overflow-hidden bg-zinc-950 border-b border-borderLine">
+            <img src="assets/project_genai.jpg" alt="Tata Group GenAI Delinquency Forecasting" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100" />
+            <div class="absolute top-3 right-3 font-mono text-[10px] px-2.5 py-1 bg-zinc-950/80 backdrop-blur-sm border border-emerald-500/40 text-emerald-400 rounded-full">
+              Tata Group Simulation
+            </div>
+          </div>
+          <div class="p-6 space-y-3">
+            <div class="flex items-center justify-between font-mono text-xs text-zinc-500">
+              <span class="text-emerald-400 font-semibold">GenAI & Risk Profiling</span>
+              <span>May 2024</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-100 font-display group-hover:text-emerald-400 transition-colors">
+              GenAI Delinquency Forecasting & Collections Strategy
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed line-clamp-3">
+              Analyzed customer financial datasets to identify default indicators. Built predictive classification models using Scikit-Learn to estimate loan default risk and generated structured risk profiling reports using GenAI prompts.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-zinc-400">
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Python</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">GenAI</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Scikit-Learn</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Risk Modeling</span>
+            </div>
+            <div class="pt-2 flex items-center gap-1.5 font-mono text-xs text-emerald-400 font-semibold group-hover:translate-x-1 transition-transform">
+              <span>inspect_architecture()</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: Kafka Streaming -->
+        <div class="project-card glass-card rounded-xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1" data-category="backend" onclick="openProjectModal('kafka')">
+          <div class="relative h-48 overflow-hidden bg-zinc-950 border-b border-borderLine">
+            <img src="assets/project_kafka.jpg" alt="JPMorgan Kafka Streaming Backend" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100" />
+            <div class="absolute top-3 right-3 font-mono text-[10px] px-2.5 py-1 bg-zinc-950/80 backdrop-blur-sm border border-cyan-500/40 text-cyan-400 rounded-full">
+              JPMorgan Chase Simulation
+            </div>
+          </div>
+          <div class="p-6 space-y-3">
+            <div class="flex items-center justify-between font-mono text-xs text-zinc-500">
+              <span class="text-cyan-400 font-semibold">Distributed Systems</span>
+              <span>Jun 2024</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-100 font-display group-hover:text-cyan-400 transition-colors">
+              Event-Driven Streaming Backend Architecture
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed line-clamp-3">
+              Built a prototype event-driven messaging service using Java and Apache Kafka to explore asynchronous communication between backend components. Configured H2 in-memory database schemas and REST controllers for request handling.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-zinc-400">
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Java</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Apache Kafka</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Spring Boot</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">REST APIs</span>
+            </div>
+            <div class="pt-2 flex items-center gap-1.5 font-mono text-xs text-cyan-400 font-semibold group-hover:translate-x-1 transition-transform">
+              <span>inspect_architecture()</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: ML Pipeline -->
+        <div class="project-card glass-card rounded-xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1" data-category="ai" onclick="openProjectModal('ml')">
+          <div class="relative h-48 overflow-hidden bg-zinc-950 border-b border-borderLine">
+            <img src="assets/project_ml.jpg" alt="End-to-End Machine Learning Pipeline" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100" />
+            <div class="absolute top-3 right-3 font-mono text-[10px] px-2.5 py-1 bg-zinc-950/80 backdrop-blur-sm border border-teal-500/40 text-teal-400 rounded-full">
+              Unified Mentor
+            </div>
+          </div>
+          <div class="p-6 space-y-3">
+            <div class="flex items-center justify-between font-mono text-xs text-zinc-500">
+              <span class="text-teal-400 font-semibold">Machine Learning</span>
+              <span>Aug 2024</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-100 font-display group-hover:text-teal-400 transition-colors">
+              End-to-End Machine Learning Pipeline
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed line-clamp-3">
+              Constructed modular ML scripts in Python applying feature preprocessing, hyperparameter grid search, and multi-metric cross-validation to evaluate model performance on benchmark datasets.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-zinc-400">
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Python</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Scikit-Learn</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">GridSearchCV</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Pandas</span>
+            </div>
+            <div class="pt-2 flex items-center gap-1.5 font-mono text-xs text-teal-400 font-semibold group-hover:translate-x-1 transition-transform">
+              <span>inspect_architecture()</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: Tableau Analytics -->
+        <div class="project-card glass-card rounded-xl overflow-hidden group cursor-pointer transition-all duration-300 hover:-translate-y-1" data-category="analytics" onclick="openProjectModal('tableau')">
+          <div class="relative h-48 overflow-hidden bg-zinc-950 border-b border-borderLine">
+            <img src="assets/project_tableau.jpg" alt="Tableau Analytics Intelligence" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100" />
+            <div class="absolute top-3 right-3 font-mono text-[10px] px-2.5 py-1 bg-zinc-950/80 backdrop-blur-sm border border-amber-500/40 text-amber-400 rounded-full">
+              Coursera & Edureka
+            </div>
+          </div>
+          <div class="p-6 space-y-3">
+            <div class="flex items-center justify-between font-mono text-xs text-zinc-500">
+              <span class="text-amber-400 font-semibold">Visual Analytics</span>
+              <span>Dec 2024</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-100 font-display group-hover:text-amber-400 transition-colors">
+              Data Science Analytics & Visual Intelligence
+            </h3>
+            <p class="text-xs text-zinc-400 leading-relaxed line-clamp-3">
+              Created structured Tableau analytical dashboards using multi-variable datasets to visualize performance indicators, trends, and business data insights.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2 font-mono text-[11px] text-zinc-400">
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Tableau</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">Data Visualization</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">EDA</span>
+              <span class="px-2 py-0.5 bg-zinc-900 border border-zinc-800 rounded">SQL Querying</span>
+            </div>
+            <div class="pt-2 flex items-center gap-1.5 font-mono text-xs text-amber-400 font-semibold group-hover:translate-x-1 transition-transform">
+              <span>inspect_architecture()</span>
+              <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive Terminal CLI Section -->
+  <section id="terminal-section" class="py-20 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 font-mono text-xs text-emerald-400 tracking-widest uppercase space-y-2">
+        <div>// 05. Developer Playground</div>
+        <p class="text-zinc-500 font-normal normal-case leading-relaxed">
+          Type interactive commands directly into the terminal below to query resume details, skills, or trigger easter eggs.
+        </p>
+        <div class="pt-2 text-[11px] text-zinc-400 font-mono">
+          Shortcut: <kbd class="px-1.5 py-0.5 bg-zinc-800 border border-zinc-700 rounded text-zinc-300">Cmd + K</kbd>
+        </div>
+      </div>
+      
+      <div class="md:col-span-8">
+        <div class="rounded-xl border border-borderLine bg-zinc-950 overflow-hidden shadow-2xl font-mono text-xs">
+          <!-- Terminal Header -->
+          <div class="bg-zinc-900/90 px-4 py-3 border-b border-borderLine flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+              <span class="text-zinc-400 text-[11px] ml-2 font-semibold">swayam@macbook-pro: ~/portfolio</span>
+            </div>
+            <span class="text-[10px] text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-900">zsh live session</span>
+          </div>
+
+          <!-- Terminal Body Output -->
+          <div id="terminalOutput" class="p-5 h-64 overflow-y-auto space-y-2 text-zinc-300 leading-relaxed select-text">
+            <div class="text-zinc-500">Welcome to Swayam's Interactive Portfolio CLI v2.4.0.</div>
+            <div class="text-zinc-500">Type <span class="text-emerald-400 font-semibold">'help'</span> to see available commands. Try <span class="text-amber-400">'sudo hire-me'</span> for a quick summary.</div>
+          </div>
+
+          <!-- Terminal Input Prompt -->
+          <div class="bg-zinc-900/40 px-5 py-3 border-t border-borderLine/80 flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">swayam@dev:~$</span>
+            <input type="text" id="terminalInput" class="bg-transparent border-none outline-none text-zinc-100 flex-1 font-mono text-xs caret-emerald-400" placeholder="type command (e.g. help, skills, projects)..." autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Credentials Section -->
+  <section id="certifications" class="py-20 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-start">
+      <div class="md:col-span-4 font-mono text-xs text-emerald-400 tracking-widest uppercase">
+        // 06. Verified Credentials
+      </div>
+      <div class="md:col-span-8 space-y-4">
+
+        <div class="glass-card p-5 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition hover:border-emerald-500/40">
+          <div class="space-y-1">
+            <div class="text-base font-bold text-zinc-100 font-display">GenAI Powered Data Analytics</div>
+            <div class="font-mono text-xs text-zinc-400">Tata Group &bull; Forage Simulation &bull; May 2024</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[11px] text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg select-all">ID: 6abe96252b0e8ee96d8b8aa5</span>
+            <button onclick="showCredModal('GenAI Powered Data Analytics', 'Tata Group / Forage', 'ID: 6abe96252b0e8ee96d8b8aa5', 'Exploratory data analysis, risk profiling, loan default predictive modeling and GenAI collections strategy reporting.')" class="text-xs font-mono text-emerald-400 hover:underline">
+              Verify
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition hover:border-emerald-500/40">
+          <div class="space-y-1">
+            <div class="text-base font-bold text-zinc-100 font-display">Machine Learning Professional Certificate</div>
+            <div class="font-mono text-xs text-zinc-400">Unified Mentor &bull; Aug 2024</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[11px] text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1.5 rounded-lg">ISO Verified Certificate</span>
+            <button onclick="showCredModal('Machine Learning Professional', 'Unified Mentor', 'ISO Verified Certificate', 'Modular predictive pipelines, hyperparameter search, classification and cross-validation benchmarking.')" class="text-xs font-mono text-emerald-400 hover:underline">
+              Verify
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition hover:border-emerald-500/40">
+          <div class="space-y-1">
+            <div class="text-base font-bold text-zinc-100 font-display">Software Engineering Job Simulation</div>
+            <div class="font-mono text-xs text-zinc-400">JPMorgan Chase & Co. &bull; Forage &bull; Jun 2024</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[11px] text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg select-all">ID: qmvk4xAE2gKMNAWWS</span>
+            <button onclick="showCredModal('Software Engineering Job Simulation', 'JPMorgan Chase & Co. / Forage', 'ID: qmvk4xAE2gKMNAWWS', 'Event-driven streaming systems using Java, Kafka streaming queues, and RESTful web controllers.')" class="text-xs font-mono text-emerald-400 hover:underline">
+              Verify
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card p-5 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition hover:border-emerald-500/40">
+          <div class="space-y-1">
+            <div class="text-base font-bold text-zinc-100 font-display">Tableau for Data Science Workflow</div>
+            <div class="font-mono text-xs text-zinc-400">Edureka via Coursera &bull; Dec 2024</div>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-[11px] text-zinc-400 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg select-all">ID: 2Q4MVITTQHUP</span>
+            <button onclick="showCredModal('Tableau for Data Science Workflow', 'Edureka via Coursera', 'ID: 2Q4MVITTQHUP', 'Visual storytelling, dynamic Tableau dashboards, dataset aggregation, and metric visualization.')" class="text-xs font-mono text-emerald-400 hover:underline">
+              Verify
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact & Communication Section -->
+  <section id="contact" class="py-24 px-6 max-w-6xl mx-auto border-t border-borderLine/80">
+    <div class="max-w-2xl mx-auto text-center space-y-6">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-800/60 text-emerald-400 font-mono text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>// available for engineering roles</span>
+      </div>
+
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-zinc-100 font-display">Let's build something together.</h2>
+      
+      <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+        Whether you are hiring for backend software engineering, AI/ML development, or full-stack positions, feel free to send an inquiry or drop a direct note.
+      </p>
+
+      <!-- Contact Card Form -->
+      <div class="glass-card rounded-2xl p-8 text-left space-y-5 border border-borderLine mt-8">
+        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-mono text-xs text-zinc-400 mb-1.5">Your Name</label>
+              <input type="text" required class="w-full bg-zinc-900 border border-borderLine focus:border-emerald-500 rounded-lg px-4 py-2.5 text-xs text-zinc-100 outline-none transition" placeholder="e.g. Alex Morgan" />
+            </div>
+            <div>
+              <label class="block font-mono text-xs text-zinc-400 mb-1.5">Email Address</label>
+              <input type="email" required class="w-full bg-zinc-900 border border-borderLine focus:border-emerald-500 rounded-lg px-4 py-2.5 text-xs text-zinc-100 outline-none transition" placeholder="alex@company.com" />
+            </div>
+          </div>
+          <div>
+            <label class="block font-mono text-xs text-zinc-400 mb-1.5">Message / Role Opportunity</label>
+            <textarea rows="4" required class="w-full bg-zinc-900 border border-borderLine focus:border-emerald-500 rounded-lg px-4 py-2.5 text-xs text-zinc-100 outline-none transition" placeholder="Hi Swayam, we loved your portfolio and would like to discuss..."></textarea>
+          </div>
+          
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+            <button type="submit" class="w-full sm:w-auto px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold rounded-lg font-mono text-xs transition shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2">
+              <i class="fa-regular fa-paper-plane"></i>
+              <span>send_inquiry()</span>
+            </button>
+
+            <a href="mailto:swayam32chaturvedi@gmail.com" class="w-full sm:w-auto px-4 py-3 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-borderLine rounded-lg font-mono text-xs transition flex items-center justify-center gap-2">
+              <i class="fa-regular fa-envelope text-emerald-400"></i>
+              <span>swayam32chaturvedi@gmail.com</span>
+            </a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-10 border-t border-borderLine/80 font-mono text-xs text-zinc-500 text-center space-y-3">
+    <div class="flex items-center justify-center gap-6 text-zinc-400">
+      <a href="https://github.com/swayam32chaturvedi-code" target="_blank" class="hover:text-emerald-400 transition"><i class="fa-brands fa-github text-sm"></i> GitHub</a>
+      <a href="https://linkedin.com/in/swayam-chaturvedi" target="_blank" class="hover:text-emerald-400 transition"><i class="fa-brands fa-linkedin text-sm"></i> LinkedIn</a>
+      <a href="#hero" class="hover:text-emerald-400 transition"><i class="fa-solid fa-arrow-up text-xs"></i> Back to Top</a>
+    </div>
+    <div>
+      &copy; 2024 Swayam Chaturvedi. Engineered with HTML5, Vanilla JS & Tailwind CSS.
+    </div>
+  </footer>
+
+  <!-- Project Detail Modal Overlay -->
+  <div id="projectModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="glass-card bg-zinc-950 border border-borderLine rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-6 relative shadow-2xl animate-toast">
+      <!-- Modal Close Button -->
+      <button onclick="closeProjectModal()" class="absolute top-5 right-5 text-zinc-400 hover:text-white p-2 rounded-lg bg-zinc-900 border border-zinc-800">
+        <i class="fa-solid fa-xmark text-base"></i>
+      </button>
+
+      <div id="modalContent" class="space-y-6">
+        <!-- Dynamic content injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Alert element -->
+  <div id="toastAlert" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 hidden font-mono text-xs px-4 py-2.5 bg-zinc-900 border border-emerald-500/80 text-emerald-400 rounded-lg shadow-2xl animate-toast flex items-center gap-2">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastText">Email copied to clipboard!</span>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    // Mouse tracking spotlight canvas
+    const body = document.getElementById('body');
+    window.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      body.style.setProperty('--mouse-x', `${x}px`);
+      body.style.setProperty('--mouse-y', `${y}px`);
+    });
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Copy Email Toast logic
+    function copyEmailToClipboard() {
+      const email = 'swayam32chaturvedi@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        showToast(`Copied to clipboard: ${email}`);
+      }).catch(() => {
+        showToast('Email address ready: swayam32chaturvedi@gmail.com');
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastAlert');
+      const toastText = document.getElementById('toastText');
+      toastText.innerText = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    function scrollToContact() {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Filter projects logic
+    function filterProjects(cat) {
+      const cards = document.querySelectorAll('.project-card');
+      const tabs = ['all', 'ai', 'backend', 'analytics'];
+      
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if(btn) {
+          if(t === cat) {
+            btn.className = 'px-3 py-1.5 rounded-md bg-emerald-500 text-zinc-950 font-semibold transition';
+          } else {
+            btn.className = 'px-3 py-1.5 rounded-md text-zinc-400 hover:text-white transition';
+          }
+        }
+      });
+
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if(cat === 'all' || category === cat) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Modal data dictionary
+    const modalData = {
+      genai: {
+        title: "GenAI Delinquency Forecasting & Risk Strategy",
+        subtitle: "Tata Group Simulation — Financial Risk Profiling",
+        image: "assets/project_genai.jpg",
+        description: "Developed an automated exploratory data analysis and risk classification architecture. The system ingests multi-variable credit datasets, builds predictive delinquency scoring pipelines, and leverages GenAI prompt-engineered models to produce tailored collection intervention plans for high-risk customer segments.",
+        highlights: [
+          "Delivered predictive model with cross-validation default forecasting metrics",
+          "Automated executive risk reporting and AI-guided recovery strategy",
+          "Built EDA pipeline to identify early indicators of financial distress"
+        ],
+        tech: ["Python", "Generative AI", "Scikit-Learn", "EDA", "Risk Profiling", "Pandas"],
+        codeSnippet: `# Sample Risk Profiling & Prediction Pipeline snippet
+import pandas as pd
+from sklearn.ensemble import GradientBoostingClassifier
+
+def evaluate_delinquency_risk(df):
+    features = ['credit_utilization', 'payment_delay_30d', 'income_ratio']
+    X = df[features]
+    y = df['default_status']
+    
+    model = GradientBoostingClassifier(n_estimators=100, random_state=42)
+    model.fit(X, y)
+    df['risk_probability'] = model.predict_proba(X)[:, 1]
+    return df`
+      },
+      kafka: {
+        title: "Event-Driven Streaming Backend Architecture",
+        subtitle: "JPMorgan Chase & Co. Job Simulation — High-Throughput Java Backend",
+        image: "assets/project_kafka.jpg",
+        description: "Architected a real-time event-driven streaming application leveraging Apache Kafka message topics to ensure asynchronous decoupling between distributed services. Integrated H2 in-memory relational schemas and Spring REST controllers for seamless request dispatching.",
+        highlights: [
+          "Configured Kafka producer/consumer groups with low end-to-end latency",
+          "Designed clean REST API controllers with comprehensive unit test coverage",
+          "Implemented H2 database transaction isolation for rapid testing cycles"
+        ],
+        tech: ["Java", "Apache Kafka", "Spring Boot", "H2 Database", "REST APIs", "Maven"],
+        codeSnippet: `// Sample Kafka Producer Event Controller
+@RestController
+@RequestMapping("/api/v1/events")
+public class TransactionEventController {
+    
+    @Autowired
+    private KafkaTemplate<String, TransactionEvent> kafkaTemplate;
+    
+    @PostMapping("/dispatch")
+    public ResponseEntity<String> dispatchEvent(@RequestBody TransactionEvent event) {
+        kafkaTemplate.send("transaction-topic", event.getAccountId(), event);
+        return ResponseEntity.ok("Event queued successfully");
+    }
+}`
+      },
+      ml: {
+        title: "End-to-End Machine Learning Pipeline",
+        subtitle: "Unified Mentor — Predictive Modeling Benchmark",
+        image: "assets/project_ml.jpg",
+        description: "Built modular, end-to-end machine learning pipelines incorporating dynamic feature engineering, outlier detection, and GridSearchCV hyperparameter tuning across classification and regression benchmarks.",
+        highlights: [
+          "Achieved robust multi-metric cross-validation accuracy across benchmarks",
+          "Engineered automated feature selection and scaling pipelines",
+          "Implemented model persistence and evaluation dashboard reports"
+        ],
+        tech: ["Python", "Scikit-Learn", "GridSearchCV", "Feature Engineering", "NumPy", "Matplotlib"],
+        codeSnippet: `# Modular Pipeline Grid Search Tuning
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import GridSearchCV
+
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('clf', RandomForestClassifier())
+])
+param_grid = {'clf__n_estimators': [50, 100, 200], 'clf__max_depth': [5, 10, None]}
+grid = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy')`
+      },
+      tableau: {
+        title: "Data Science Analytics & Visual Intelligence",
+        subtitle: "Coursera & Edureka — Executive Intelligence Dashboard",
+        image: "assets/project_tableau.jpg",
+        description: "Constructed comprehensive interactive Tableau dashboards connecting raw multi-variable datasets into actionable visual insights, optimizing performance indicators and reducing diagnostic query timelines.",
+        highlights: [
+          "Synthesized complex datasets into clean interactive dashboards",
+          "Accelerated query diagnostic time with pre-aggregated dataset structures",
+          "Delivered executive data-storytelling visual presentations"
+        ],
+        tech: ["Tableau", "Data Science", "EDA", "SQL Querying", "Data Storytelling"],
+        codeSnippet: `-- Sample Diagnostic Analytics Aggregation Query
+SELECT 
+    region,
+    DATE_TRUNC('month', order_date) AS order_month,
+    SUM(revenue) AS total_revenue,
+    AVG(customer_satisfaction_score) AS avg_csat
+FROM sales_analytics
+GROUP BY 1, 2
+ORDER BY order_month DESC;`
+      }
+    };
+
+    function openProjectModal(key) {
+      const data = modalData[key];
+      if(!data) return;
+
+      const modalContent = document.getElementById('modalContent');
+      modalContent.innerHTML = `
+        <div class="space-y-4">
+          <div class="font-mono text-xs text-emerald-400 uppercase tracking-wider">${data.subtitle}</div>
+          <h2 class="text-2xl font-bold text-zinc-100 font-display">${data.title}</h2>
+          
+          <div class="rounded-xl overflow-hidden border border-borderLine h-56 sm:h-72">
+            <img src="${data.image}" alt="${data.title}" class="w-full h-full object-cover" />
+          </div>
+
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">${data.description}</p>
+
+          <div class="space-y-2">
+            <div class="font-mono text-xs font-semibold text-zinc-200">Key Technical Highlights:</div>
+            <ul class="text-xs text-zinc-400 space-y-1.5 list-disc list-inside">
+              ${data.highlights.map(h => `<li>${h}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <div class="font-mono text-xs font-semibold text-zinc-200">Technologies Used:</div>
+            <div class="flex flex-wrap gap-2 font-mono text-[11px]">
+              ${data.tech.map(t => `<span class="px-2.5 py-1 bg-zinc-900 border border-zinc-800 text-emerald-400 rounded-md">${t}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2">
+            <div class="font-mono text-xs font-semibold text-zinc-200">Architecture Sample Snippet:</div>
+            <pre class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl font-mono text-[11px] text-zinc-300 overflow-x-auto"><code>${escapeHtml(data.codeSnippet)}</code></pre>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('projectModal').classList.remove('hidden');
+      document.getElementById('projectModal').classList.add('flex');
+    }
+
+    function closeProjectModal() {
+      document.getElementById('projectModal').classList.add('hidden');
+      document.getElementById('projectModal').classList.remove('flex');
+    }
+
+    function showCredModal(title, issuer, id, desc) {
+      alert(`[VERIFIED CREDENTIAL]\n\nTitle: ${title}\nIssuer: ${issuer}\nCredential ${id}\n\nDetails: ${desc}`);
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      showToast("Message dispatched successfully! Swayam will reply shortly.");
+      e.target.reset();
+    }
+
+    // Terminal logic
+    const terminalInput = document.getElementById('terminalInput');
+    const terminalOutput = document.getElementById('terminalOutput');
+
+    const commands = {
+      help: "Available commands:\n  • about     : Brief overview\n  • skills    : Technical stack summary\n  • projects  : Featured work list\n  • creds     : Certifications & simulations\n  • contact   : Email details\n  • clear     : Clear terminal screen\n  • sudo hire-me : Quick engineer overview",
+      about: "Swayam Chaturvedi — Software & AI Engineer. Experienced in Java backend streaming (Kafka), Machine Learning pipelines (Scikit-Learn), and responsive Web Applications.",
+      skills: "Languages: Java, Python, JavaScript, SQL, HTML5, CSS3\nFrameworks: Spring Boot, Apache Kafka, Scikit-Learn, Pandas, Tableau, Tailwind CSS",
+      projects: "1. Tata GenAI Delinquency Forecasting\n2. JPMorgan Kafka Streaming Architecture\n3. Machine Learning Pipeline Workbench\n4. Tableau Visual Science Analytics",
+      creds: "1. GenAI Powered Data Analytics (Tata Group / Forage)\n2. Machine Learning Professional (Unified Mentor - ISO Verified)\n3. Software Engineering Job Simulation (JPMorgan Chase)\n4. Tableau Data Science (Coursera)",
+      contact: "Email: swayam32chaturvedi@gmail.com\nLinkedIn: https://linkedin.com/in/swayam-chaturvedi\nGitHub: https://github.com/swayam32chaturvedi-code",
+      "sudo hire-me": "🚀 [HIRE CANDIDATE]\nSwayam Chaturvedi brings a strong foundation in high-throughput backend services, event-driven streaming, and AI pipelines. Ready to contribute immediately!"
+    };
+
+    terminalInput.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        const val = terminalInput.value.trim().toLowerCase();
+        terminalInput.value = '';
+
+        if(!val) return;
+
+        // Print command prompt line
+        const cmdLine = document.createElement('div');
+        cmdLine.innerHTML = `<span class="text-emerald-400 font-bold">swayam@dev:~$</span> ${escapeHtml(val)}`;
+        terminalOutput.appendChild(cmdLine);
+
+        if(val === 'clear') {
+          terminalOutput.innerHTML = '';
+          return;
+        }
+
+        const responseLine = document.createElement('div');
+        if(commands[val]) {
+          responseLine.className = 'text-zinc-300 whitespace-pre-wrap pl-3 border-l-2 border-emerald-500 my-1 text-[11px]';
+          responseLine.textContent = commands[val];
+        } else {
+          responseLine.className = 'text-red-400 pl-3 my-1 text-[11px]';
+          responseLine.textContent = `zsh: command not found: ${val}. Type 'help' for available commands.`;
+        }
+        
+        terminalOutput.appendChild(responseLine);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
+    });
+
+    // Keyboard shortcut Cmd/Ctrl + K to focus CLI
+    window.addEventListener('keydown', (e) => {
+      if((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('terminal-section').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => terminalInput.focus(), 400);
+      }
+    });
+  </script>
+</body>
+</html>
